@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recent Advances in Topic Modeling with LLMs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header and Navigation */
+        header {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        h1 {
+            margin-bottom: 0;
+            font-size: 28px;
+        }
+
+        nav {
+            text-align: right;
+        }
+
+        nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #8B0000;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Blog posts */
+        .blog-post {
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .blog-title {
+            font-size: 1.6em;
+            margin-bottom: 5px;
+        }
+
+        .blog-date {
+            color: #777;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .blog-content {
+            margin-top: 15px;
+        }
+
+        .blog-content p {
+            margin-bottom: 15px;
+        }
+
+        .blog-content h3 {
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        /* Code blocks */
+        pre {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: monospace;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #777;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Weijie Xu</h1>
+        <nav>
+            <a href="../index.html">Main</a>
+            <a href="../papers.html">Papers</a>
+            <a href="../writings.html">Writings</a>
+        </nav>
+    </header>
+
+    <article class="blog-post">
+        <h3 class="blog-title">Recent Advances in Topic Modeling with LLMs</h3>
+        <p class="blog-date">February 25, 2025</p>
+        <div class="blog-content">
+            <p>Topic modeling has traditionally relied on statistical methods like Latent Dirichlet Allocation (LDA),
+                but the landscape is rapidly changing with the introduction of Large Language Models (LLMs). In this
+                post, I'll discuss how our DeTiME approach leverages diffusion models and encoder-decoder LLMs to
+                achieve state-of-the-art results in topic coherence and interpretability.</p>
+
+            <h3>The Evolution of Topic Modeling</h3>
+
+            <p>Classical topic modeling approaches like LDA work by assuming documents are generated from a mixture of
+                topics, with each topic represented as a distribution over words. While these methods have been
+                successful, they often produce topics that lack coherence or contain unrelated terms, making
+                interpretation difficult.</p>
+
+            <p>Neural topic models improved upon these limitations by incorporating word embeddings and deep learning
+                architectures. However, they still struggled with producing truly interpretable topics, especially for
+                specialized domains with complex terminology.</p>
+
+            <h3>Enter LLMs and Diffusion Models</h3>
+
+            <p>Our DeTiME approach takes advantage of the semantic understanding capabilities of LLMs combined with the
+                generative power of diffusion models. This hybrid approach allows us to:</p>
+
+            <ol>
+                <li>Capture more nuanced semantic relationships between words</li>
+                <li>Generate more coherent and interpretable topic descriptions</li>
+                <li>Adapt to domain-specific terminology more effectively</li>
+                <li>Produce hierarchical topic structures that better represent complex document collections</li>
+            </ol>
+
+            <p>One of the key innovations in our work is the use of diffusion models to gradually refine topic
+                representations. Starting from random noise, the model iteratively denoises the representation until it
+                converges on a coherent topic structure. This process is guided by the semantic understanding provided
+                by the encoder-decoder LLM.</p>
+
+            <h3>Practical Applications</h3>
+
+            <p>We've successfully applied DeTiME to several real-world scenarios:</p>
+
+            <ul>
+                <li>Analyzing customer feedback and reviews to identify emerging concerns</li>
+                <li>Organizing research literature to identify trending topics and gaps</li>
+                <li>Structuring internal documentation to improve knowledge management</li>
+            </ul>
+
+            <p>The results consistently show improvements in topic coherence and human interpretability compared to
+                traditional methods. For organizations dealing with large volumes of text data, this approach offers a
+                more effective way to extract actionable insights.</p>
+
+            <p>In future work, we plan to extend DeTiME to handle cross-lingual topic modeling and to incorporate
+                multimodal information for even richer topic representations.</p>
+        </div>
+    </article>
+
+    <footer>
+        <p>© 2025 Weijie Xu | Last updated: March 11, 2025</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weijie Xu - Papers</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header and Navigation */
+        header {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+        
+        h1 {
+            margin-bottom: 0;
+            font-size: 28px;
+        }
+        
+        nav {
+            text-align: right;
+        }
+        
+        nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #8B0000;
+            font-weight: 500;
+        }
+        
+        nav a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Papers */
+        .paper {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .paper-title {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .paper-authors {
+            font-style: italic;
+            margin: 8px 0;
+        }
+        
+        .paper-venue {
+            margin: 8px 0;
+        }
+        
+        .paper-links a {
+            margin-right: 15px;
+            color: #8B0000;
+        }
+        
+        .paper-abstract {
+            margin-top: 10px;
+            padding-left: 15px;
+            border-left: 3px solid #eee;
+        }
+        
+        /* Footer */
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #777;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Weijie Xu</h1>
+        <nav>
+            <a href="index.html">Main</a>
+            <a href="papers.html">Papers</a>
+            <a href="writings.html">Writings</a>
+        </nav>
+    </header>
+
+    <h2>Research Papers</h2>
+    <p>(Full list available on <a href="https://scholar.google.com/citations?user=lWjp-dQAAAAJ&hl=en">Google Scholar</a>)</p>
+    
+    <div class="papers-list">
+        <div class="paper">
+            <p class="paper-title"><a href="https://arxiv.org/abs/2406.03703" target="_blank">Synthesizing conversations from unlabeled documents using automatic response segmentation</a></p>
+            <p class="paper-authors"><em>Fanyou Wu</em>, <em>Weijie Xu</em>, <em>Chandan Reddy</em>, <em>Srinivasan Sengamedu</em></p>
+            <p class="paper-venue">In Findings of the Association for Computational Linguistics: ACL, 2024</p>
+            <p class="paper-links">
+                <a href="https://arxiv.org/abs/2406.03703" target="_blank">Paper</a>
+            </p>
+            <div class="paper-abstract">
+                <p>This work introduces a novel approach for automatically synthesizing conversations from unlabeled documents through response segmentation. We demonstrate how this method can be applied to create high-quality conversational datasets from existing textual resources.</p>
+            </div>
+        </div>
+        
+        <div class="paper">
+            <p class="paper-title"><a href="https://arxiv.org/pdf/2402.17944" target="_blank">Large language models (LLMs) on tabular data: Prediction, generation, and understanding-a survey</a></p>
+            <p class="paper-authors"><em>Xi Fang*</em>, <em>Weijie Xu*</em>, <em>Fiona Anting Tan*</em>, <em>Jiani Zhang</em>, <em>Ziqing Hu</em>, <em>Yanjun Qi</em>, <em>Scott Nickleach</em>, <em>Diego Socolinsky</em>, <em>Srinivasan Sengamedu</em>, <em>Christos Faloutsos</em></p>
+            <p class="paper-venue">Transactions on Machine Learning Research, 2024</p>
+            <p class="paper-links">
+                <a href="https://github.com/tanfiona/LLM-on-Tabular-Data-Prediction-Table-Understanding-Data-Generation" target="_blank">GitHub</a>
+                <a href="https://arxiv.org/pdf/2402.17944" target="_blank">Paper</a>
+            </p>
+            <div class="paper-abstract">
+                <p>This comprehensive survey examines the applications of large language models to tabular data tasks, including prediction, generation, and understanding. We analyze current approaches, challenges, and future directions for this emerging research area.</p>
+            </div>
+        </div>
+        
+        <div class="paper">
+            <p class="paper-title"><a href="https://aclanthology.org/2023.findings-emnlp.606/" target="_blank">DeTiME: Diffusion-Enhanced Topic Modeling using Encoder-decoder based LLM</a></p>
+            <p class="paper-authors"><em>Weijie Xu</em>, <em>Wenxiang Hu</em>, <em>Fanyou Wu</em>, <em>Srinivasan Sengamedu</em></p>
+            <p class="paper-venue">In Findings of the Association for Computational Linguistics: EMNLP, 2023</p>
+            <p class="paper-links">
+                <a href="https://github.com/amazon-science/text_generation_diffusion_llm_topic" target="_blank">GitHub</a>
+                <a href="https://aclanthology.org/2023.findings-emnlp.606/" target="_blank">Paper</a>
+            </p>
+            <div class="paper-abstract">
+                <p>We present DeTiME, a novel approach that enhances topic modeling by combining diffusion models with encoder-decoder LLMs. Our method produces more coherent and interpretable topics compared to traditional approaches, while being more computationally efficient.</p>
+            </div>
+        </div>
+        
+        <div class="paper">
+            <p class="paper-title"><a href="https://arxiv.org/pdf/2307.01226" target="_blank">vONTSS: vMF based semi-supervised neural topic modeling with optimal transport</a></p>
+            <p class="paper-authors"><em>Weijie Xu</em>, <em>Xiaoyu Jiang</em>, <em>Srinivasan Sengamedu</em>, <em>Francis Iannacci</em>, <em>Jinjin Zhao</em></p>
+            <p class="paper-venue">In Findings of the Association for Computational Linguistics: ACL, 2023</p>
+            <p class="paper-links">
+                <a href="https://github.com/xuweijieshuai/Neural-Topic-Modeling-vmf" target="_blank">GitHub</a>
+                <a href="https://arxiv.org/pdf/2307.01226" target="_blank">Paper</a>
+            </p>
+            <div class="paper-abstract">
+                <p>This paper introduces vONTSS, a semi-supervised neural topic modeling approach that leverages von Mises-Fisher distributions and optimal transport to improve topic coherence and interpretability, particularly for datasets with limited labeled examples.</p>
+            </div>
+        </div>
+        
+        <div class="paper">
+            <p class="paper-title"><a href="https://assets.amazon.science/cc/bd/2d06d5cf4ce6a87b06954fc23596/ffpdg-fast-fair-and-private-data-generation.pdf" target="_blank">FFPDG: FAST, FAIR AND PRIVATE DATA GENERATION</a></p>
+            <p class="paper-authors"><em>Weijie Xu</em>, <em>Jinjin Zhao</em>, <em>Francis Iannacci</em>, <em>Bo Wang</em></p>
+            <p class="paper-venue">ICLR 2021 Workshop on Synthetic Data Generation</p>
+            <p class="paper-links">
+                <a href="https://assets.amazon.science/cc/bd/2d06d5cf4ce6a87b06954fc23596/ffpdg-fast-fair-and-private-data-generation.pdf" target="_blank">Paper</a>
+            </p>
+            <div class="paper-abstract">
+                <p>We propose FFPDG, a framework for generating synthetic data that is fast, fair, and preserves privacy. Our approach addresses key challenges in synthetic data generation for sensitive domains while maintaining utility for downstream machine learning tasks.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Weijie Xu | Last updated: March 11, 2025</p>
+    </footer>
+</body>
+</html>

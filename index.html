@@ -1,157 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weijie Xu - Senior Applied Scientist Amazon | Contact: xwjzds.xu@gmail.com | <a href="https://www.linkedin.com/in/weijie-xu-936b23101/">LinkedIn</a> </title>
+    <title>Weijie Xu - ML Researcher</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
             color: #333;
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 20px;
         }
+
+        /* Header and Navigation */
         header {
-            text-align: center;
-            margin-bottom: 40px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
         }
+
         h1 {
-            margin-bottom: 5px;
+            margin-bottom: 0;
+            font-size: 28px;
         }
+
         nav {
-            margin-top: 20px;
+            text-align: right;
         }
+
         nav a {
-            margin: 0 10px;
+            margin-left: 20px;
             text-decoration: none;
-            color: #2c3e50;
+            color: #8B0000;
+            font-weight: 500;
         }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main content area */
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .left-column {
+            flex: 2;
+            padding-right: 40px;
+        }
+
+        .right-column {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        /* Profile info */
+        .profile-info {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid #eee;
+            margin-bottom: 30px;
+        }
+
+        /* Sections */
         .section {
-            margin-bottom: 40px;
+            margin-bottom: 50px;
         }
+
+        /* Papers */
         .paper {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
+
         .paper-title {
             font-weight: bold;
         }
+
         .paper-authors {
             font-style: italic;
+            margin: 5px 0;
         }
+
         .paper-venue {
-            margin-top: 5px;
+            margin: 5px 0;
         }
+
         .paper-links a {
-            margin-right: 10px;
+            margin-right: 15px;
+            color: #8B0000;
         }
-        img {
+
+        /* Blog posts */
+        .blog-post {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .blog-title {
+            font-size: 1.4em;
+            margin-bottom: 5px;
+        }
+
+        .blog-date {
+            color: #777;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .blog-content {
+            margin-top: 10px;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #777;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        /* Selected work section */
+        .selected-work {
+            margin-top: 40px;
+        }
+
+        .work-item {
+            display: flex;
+            margin-bottom: 30px;
+        }
+
+        .work-image {
+            flex: 1;
             max-width: 200px;
-            border-radius: 50%;
-            display: block;
-            margin: 0 auto 20px;
+            margin-right: 20px;
+        }
+
+        .work-image img {
+            max-width: 100%;
+        }
+
+        .work-description {
+            flex: 3;
         }
     </style>
 </head>
+
 <body>
     <header>
         <h1>Weijie Xu</h1>
-        <p> xwjzds.xu@gmail.com | <a href="https://www.linkedin.com/in/weijie-xu-936b23101/">LinkedIn</a>  </p>
+        <nav>
+            <a href="index.html">Main</a>
+            <a href="papers.html">Papers</a>
+            <a href="writings.html">Writings</a>
+        </nav>
     </header>
 
-    <div id="about" class="section">
-        <p>I am a Senior Applied Scientist at Amazon. My long-term passion is using machine learning to boost productivity, happiness, and fairness in the workplace. I am currently working application based GenAI evaluations.</p>
-    </div>
-    
-    <div id="experience" class="section">
-        <h2>Professional Experience</h2>
-        <h3>Senior Applied Scientist, Amazon PXTCS</h3>
-        <p>July 2020 - Present</p>
-        <ul>
-            <li>Application-based LLM Evaluation: Designed and managed an end-to-end pipeline to assess GenAI applications for bias, toxicity, and hallucination. </li>
-            <li>Synthetic Data Generation: Created various data generation algorithms for ML training and evaluation, applied in HR and AWS healthcare.</li>
-            <li>Tabular Deep Learning: Built and deployed a scalable, explainable attrition prediction model with high accuracy for group and individual levels. </li>
-            <li>Topic Modeling: Developed and deployed a semi-supervised topic modeling system to analyze large-scale noisy text data.</li>
-        </ul>
+    <div class="main-content">
+        <div class="left-column">
+            <div class="section">
+                <p>I am a Senior Applied Scientist at Amazon working at LLM Evaluation and LLM Agent. I am currently
+                    leading a system on application-based
+                    GenAI evaluations in Amazon.</p>
 
-        <h3>Senior Data Scientist, Schlumberger</h3>
-        <p>August 2018 - July 2020</p>
-        <ul>
-            <li>Co-create the first data science group in Schlumberger to solve employee attrition problems.</li>
-        </ul>
-    </div>
-    
+                <p>My experience in Amazon includes unifying internal prediction tasks such as Safety and Headcount
+                    Forecasting by creating a tabular deep learning model architecture, building a weakly-suprvised
+                    topic modeling system to analyze millions of internal documents, and
+                    building an agent system to replace survey for internal usecase. As a byproduct, I have published
+                    papers in top-tier conferences including ACL and EMNLP on those topics.</p>
 
-    <div id="selected publications" class="section">
-        <h2>Selected Research Papers</h2>
-        <p>(full list see <a href="https://scholar.google.com/citations?user=lWjp-dQAAAAJ&hl=en">Google Scholar</a>)</p>
-        <ul>
-            </li>
-                <li class="paper">
-                    <p class="paper-title"><a href="https://arxiv.org/abs/2406.03703" target="_blank">Synthesizing conversations from unlabeled documents using automatic response segmentation</a></p>
-                    <p class="paper-authors"><em>Fanyou Wu</em>, <em>Weijie Xu</em>, <em>Chandan Reddy</em>, <em>Srinivasan Sengamedu</em></p>
-                    <p class="paper-venue">In Findings of the Association for Computational Linguistics: ACL, 2024</p>
-                    <p class="paper-links">
-                        <a href="https://arxiv.org/abs/2406.03703" target="_blank">Paper</a>
-                    </p>
-                </li>
-            <li class="paper">
-                <p class="paper-title"><a href="https://arxiv.org/pdf/2402.17944" target="_blank">Large language models (LLMs) on tabular data: Prediction, generation, and understanding-a survey</a></p>
-                <p class="paper-authors"><em>Xi Fang*</em>, <em>Weijie Xu*</em>, <em>Fiona Anting Tan*</em>, <em>Jiani Zhang</em>, <em>Ziqing Hu</em>, <em>Yanjun Qi</em>, <em>Scott Nickleach</em>, <em>Diego Socolinsky</em>, <em>Srinivasan Sengamedu</em>, <em>Christos Faloutsos</em></p>
-                <p class="paper-venue">Transactions on Machine Learning Research, 2024</p>
-                <p class="paper-links">
-                    <a href="https://github.com/tanfiona/LLM-on-Tabular-Data-Prediction-Table-Understanding-Data-Generation" target="_blank">GitHub</a>
-                    <a href="https://arxiv.org/pdf/2402.17944" target="_blank">Paper</a>
-                </p>
-            </li>
-            <li class="paper">
-                <p class="paper-title"><a href="https://aclanthology.org/2023.findings-emnlp.606/" target="_blank">DeTiME: Diffusion-Enhanced Topic Modeling using Encoder-decoder based LLM</a></p>
-                <p class="paper-authors"><em>Weijie Xu</em>, <em>Wenxiang Hu</em>, <em>Fanyou Wu</em>, <em>Srinivasan Sengamedu</em></p>
-                <p class="paper-venue">In Findings of the Association for Computational Linguistics: EMNLP, 2023</p>
-                <p class="paper-links">
-                    <a href="https://github.com/amazon-science/text_generation_diffusion_llm_topic" target="_blank">GitHub</a>
-                    <a href="https://aclanthology.org/2023.findings-emnlp.606/" target="_blank">Paper</a>
-                </p>
-            </li>
-            <li class="paper">
-                <p class="paper-title"><a href="https://arxiv.org/pdf/2307.01226" target="_blank">vONTSS: vMF based semi-supervised neural topic modeling with optimal transport</a></p>
-                <p class="paper-authors"><em>Weijie Xu</em>, <em>Xiaoyu Jiang</em>, <em>Srinivasan Sengamedu</em>, <em>Francis Iannacci</em>, <em>Jinjin Zhao</em></p>
-                <p class="paper-venue">In Findings of the Association for Computational Linguistics: ACL, 2023</p>
-                <p class="paper-links">
-                    <a href="https://github.com/xuweijieshuai/Neural-Topic-Modeling-vmf" target="_blank">GitHub</a>
-                    <a href="https://arxiv.org/pdf/2307.01226" target="_blank">Paper</a>
-                </p>
-            </li>
-            <li class="paper">
-                <p class="paper-title"><a href="https://assets.amazon.science/cc/bd/2d06d5cf4ce6a87b06954fc23596/ffpdg-fast-fair-and-private-data-generation.pdf" target="_blank">FFPDG: FAST, FAIR AND PRIVATE DATA GENERATION</a></p>
-                <p class="paper-authors"><em>Weijie Xu</em>, <em>Jinjin Zhao</em>, <em>Francis Iannacci</em>, <em>Bo Wang</em></p>
-                <p class="paper-venue">ICLR 2021 Workshop on Synthetic Data Generation</p>
-                <p class="paper-links">
-          
-                    <a href="https://assets.amazon.science/cc/bd/2d06d5cf4ce6a87b06954fc23596/ffpdg-fast-fair-and-private-data-generation.pdf" target="_blank">Paper</a>
-                </p>
-            </li>
-        </ul>
+                <p>Before joining Amazon, I was a Senior Data Scientist at Schlumberger where I co-created the first
+                    data science group focused on solving employee attrition problems using tabular deep learning.</p>
+
+                <p>I received my Master of Arts in Statistics from UC Berkeley (2018) and Bachelor of Science in Applied
+                    Mathematics with a minor in Computer Science from the University of Toronto (2017).</p>
+            </div>
+
+
+        </div>
+
+        <div class="right-column">
+            <div class="profile-info">
+                <img src="images/profile.jpg" alt="Weijie Xu"
+                    style="width: 200px; border-radius: 50%; margin-bottom: 20px;">
+                <h3>Weijie Xu</h3>
+                <p>Senior Applied Scientist, Amazon</p>
+                <p>xwjzds.xu@gmail.com</p>
+                <p><a href="https://www.linkedin.com/in/weijie-xu-936b23101/">LinkedIn</a></p>
+                <p><a href="https://scholar.google.com/citations?user=lWjp-dQAAAAJ&hl=en">Google Scholar</a></p>
+                <p><a href="https://github.com/xuweijieshuai">GitHub</a></p>
+            </div>
+        </div>
     </div>
 
-
-    <div id="education" class="section">
-        <h2>Education</h2>
-
-        <h3>Master of Arts in Statistics, University of California, Berkeley</h3>
-        <p>Graduated: May 2018</p>
-        <p>Top 5% in the Comprehensive Exam</p>
-
-        <h3>Bachelor of Science in Applied Mathematics, University of Toronto</h3>
-        <p>Minor: Computer Science</p>
-        <p>Graduated: June 2017</p>
-        <p>CGPA 3.88/4, Silver Medal</p>
-
-       
-    </div>
-<!--    <footer>-->
-<!--        <p>Contact: xwjzds.xu@gmail.com | <a href="https://www.linkedin.com/in/weijie-xu-936b23101/">LinkedIn</a> | Mobile: +1-510-626-7579</p>-->
-<!--    </footer>-->
+    <footer>
+        <p>© 2025 Weijie Xu | Last updated: March 11, 2025</p>
+    </footer>
 </body>
+
 </html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Current State of LLM Evaluation: Challenges and Solutions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header and Navigation */
+        header {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        h1 {
+            margin-bottom: 0;
+            font-size: 28px;
+        }
+
+        nav {
+            text-align: right;
+        }
+
+        nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #8B0000;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Blog posts */
+        .blog-post {
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .blog-title {
+            font-size: 1.6em;
+            margin-bottom: 5px;
+        }
+
+        .blog-date {
+            color: #777;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .blog-content {
+            margin-top: 15px;
+        }
+
+        .blog-content p {
+            margin-bottom: 15px;
+        }
+
+        .blog-content h3 {
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        /* Code blocks */
+        pre {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: monospace;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #777;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Weijie Xu</h1>
+        <nav>
+            <a href="../index.html">Main</a>
+            <a href="../papers.html">Papers</a>
+            <a href="../writings.html">Writings</a>
+        </nav>
+    </header>
+
+    <article class="blog-post">
+        <h3 class="blog-title">The Current State of LLM Evaluation: Challenges and Solutions</h3>
+        <p class="blog-date">March 10, 2025</p>
+        <div class="blog-content">
+            <p>As large language models (LLMs) continue to evolve at a rapid pace, establishing effective evaluation
+                frameworks becomes increasingly critical. At Amazon, my team has been focused on developing
+                application-based evaluation methods that go beyond traditional benchmark scores to assess real-world
+                performance.</p>
+
+            <p>One of the persistent challenges in LLM evaluation is ensuring that our assessment captures the nuanced
+                ways these models can fail in production environments. Bias, toxicity, and hallucination are
+                particularly difficult to quantify but are essential metrics for responsible AI deployment.</p>
+
+            <h3>The Hallucination Problem</h3>
+
+            <p>Hallucination - when a model generates content that appears plausible but is factually incorrect or
+                entirely fabricated - remains one of the most challenging issues to detect and measure. Our approach
+                involves comparing model outputs against verified ground truth across diverse domains, while also
+                evaluating the model's ability to express uncertainty when appropriate.</p>
+
+            <p>We've found that hallucinations often follow predictable patterns that can be categorized and
+                systematically addressed:</p>
+
+            <ul>
+                <li>Fabrication of specific details (dates, numbers, proper nouns)</li>
+                <li>Incorrect attribution of statements or quotes</li>
+                <li>Logical inconsistencies between generated statements</li>
+                <li>Creation of non-existent relationships between entities</li>
+            </ul>
+
+            <h3>Looking Forward</h3>
+
+            <p>As we move into the era of specialized AI applications, evaluation frameworks must become increasingly
+                context-aware. The metrics that matter for a customer service chatbot differ substantially from those
+                relevant to a code generation tool or a creative writing assistant.</p>
+
+            <p>I believe the future of LLM evaluation lies in developing adaptable frameworks that can be tailored to
+                specific use cases while maintaining core principles of safety, accuracy, and fairness. This will likely
+                involve greater collaboration between academic researchers and industry practitioners to establish
+                comprehensive standards that can evolve alongside the technology.</p>
+
+            <p>In my next post, I'll dive deeper into our methods for synthetic data generation and how we're using it
+                to improve evaluation across diverse scenarios and edge cases.</p>
+        </div>
+    </article>
+
+    <footer>
+        <p>© 2025 Weijie Xu | Last updated: March 11, 2025</p>
+    </footer>
+</body>
+
+</html>
