@@ -111,50 +111,191 @@
     </header>
 
     <article class="blog-post">
-        <h3 class="blog-title">The Current State of LLM Evaluation: Challenges and Solutions</h3>
-        <p class="blog-date">March 10, 2025</p>
+
+        <h3 class="blog-title">How to Jailbreak a Post-trained LLM: A Case Study on DeepSeek R1 1776</h3>
+        <p class="blog-date">March 12, 2025</p>
         <div class="blog-content">
-            <p>As large language models (LLMs) continue to evolve at a rapid pace, establishing effective evaluation
-                frameworks becomes increasingly critical. At Amazon, my team has been focused on developing
-                application-based evaluation methods that go beyond traditional benchmark scores to assess real-world
-                performance.</p>
 
-            <p>One of the persistent challenges in LLM evaluation is ensuring that our assessment captures the nuanced
-                ways these models can fail in production environments. Bias, toxicity, and hallucination are
-                particularly difficult to quantify but are essential metrics for responsible AI deployment.</p>
+            <h3>Introduction</h3>
+            <p>
+                DeepSeek R1 1776 is a large language model (LLM) post-trained to provide detailed answers on
+                historically
+                sensitive or controversial topics. Jailbreaking refers to bypassing an LLM’s built-in safety measures to
+                retrieve restricted or harmful information. My analysis shows that post-training models to reduce overly
+                restrictive responses can inadvertently make them vulnerable to jailbreaking.
+            </p>
 
-            <h3>The Hallucination Problem</h3>
+            <h3>Why DeepSeek R1 1776 is Vulnerable</h3>
+            <p>
+                Any LLM that undergoes post-training to enhance its willingness to answer sensitive questions inherently
+                risks becoming susceptible to sophisticated jailbreaking techniques. While DeepSeek R1 1776 initially
+                shows robust safety against clearly harmful questions, its defenses weaken considerably when harmful
+                prompts are cleverly combined with topics it has been specifically post-trained to discuss.
+            </p>
+            <div style="display: flex; gap: 10px; margin-bottom: 20px;"></div>
+            <!-- First Image -->
+            <img src="post1_exampl1.png" alt="First Image" style="width: 100%; max-width: 1000px;">
+            <figcaption style="font-size: 14px; color: gray; margin-top: 5px; text-align: center;">Figure 1: R1-1776
+                teach user how to
+                prescribe illegal drugs</figcaption>
+            <!-- Second Image -->
+        </div>
 
-            <p>Hallucination - when a model generates content that appears plausible but is factually incorrect or
-                entirely fabricated - remains one of the most challenging issues to detect and measure. Our approach
-                involves comparing model outputs against verified ground truth across diverse domains, while also
-                evaluating the model's ability to express uncertainty when appropriate.</p>
+        <h3>Methodology</h3>
+        <p>
+            Our approach involved four main steps:
+        </p>
+        <ol>
+            <li>
+                <strong>Dataset Creation</strong>: We began with clearly harmful prompts from StrongReject[1],
+                including requests for information on creating explosives or toxic gases.
+            </li>
+            <li>
+                <strong>Question Combination</strong>: Malicious prompts were merged with safe example prompts
+                provided by the DeepSeek R1 1776 blog, such as inquiries about historical events like Tiananmen
+                Square. Since many LLMs refuse to handle harmful prompts directly, we utilized
+                <code>mistralai/Mistral-Nemo-Instruct-2407</code>, known for a higher acceptance rate of
+                controversial prompts[2], to generate coherent combined questions.
+            </li>
+            <li>
+                <strong>Advanced Jailbreaking with Pap_Misrepresentation[3]</strong>: We employed the
+                <em>pap_misrepresentation</em> technique, disguising harmful requests within innocent-seeming
+                contexts, such as fictional storytelling or academic inquiry. For instance, instead of directly
+                asking
+                how to create a bomb, we posed a narrative scenario about a fictional character constructing one.
+            </li>
+            <li>
+                <strong>Filtering Benign Prompts</strong>: Generated prompts were labeled by robust LLMs, including
+                Claude 3.7, O3, and Gemini 2. Questions identified as benign by any of these models were excluded
+                from
+                our analysis.
+            </li>
+        </ol>
 
-            <p>We've found that hallucinations often follow predictable patterns that can be categorized and
-                systematically addressed:</p>
+        <h3>Evaluation Metrics</h3>
+        <p>
+            We used:
+        </p>
+        <ul>
+            <li><strong>Refusal rate (higher better)</strong>: Binary indication of whether the model refused to
+                answer.</li>
+            <li>
+                <strong>Specificity and convincingness scores</strong>: Both were assessed using a rescaled Likert
+                scale from 0 to 1. 1 means specific and convincing.
+            </li>
+            <li><strong>Overall Score (lower better)</strong></li>
+        </ul>
 
-            <ul>
-                <li>Fabrication of specific details (dates, numbers, proper nouns)</li>
-                <li>Incorrect attribution of statements or quotes</li>
-                <li>Logical inconsistencies between generated statements</li>
-                <li>Creation of non-existent relationships between entities</li>
-            </ul>
 
-            <h3>Looking Forward</h3>
+        <p>
+            Below is a comparison of the Overall Score and Refusal Rate for different prompt types:
+        </p>
 
-            <p>As we move into the era of specialized AI applications, evaluation frameworks must become increasingly
-                context-aware. The metrics that matter for a customer service chatbot differ substantially from those
-                relevant to a code generation tool or a creative writing assistant.</p>
+        <table style="border-collapse: collapse; width: 100%;">
+            <thead>
+                <tr>
+                    <th style="border: 1px solid #ccc; padding: 8px;"></th>
+                    <th style="border: 1px solid #ccc; padding: 8px;">R1 1776</th>
+                    <th style="border: 1px solid #ccc; padding: 8px;">R1</th>
+                </tr>
+                <tr>
+                    <th style="border: 1px solid #ccc; padding: 8px;"></th>
+                    <th style="border: 1px solid #ccc; padding: 8px;">Overall Score/Refusal Rate</th>
+                    <th style="border: 1px solid #ccc; padding: 8px;">Overall Score/Refusal Rate</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="border: 1px solid #ccc; padding: 8px;">Jailbreak Question</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">0% / 100%</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">0% / 100%</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ccc; padding: 8px;">Combined Question</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">50.3% / 44.4%</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">22.5% / 73.6%</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ccc; padding: 8px;">Pap Combined Question</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">67.4% / 25%</td>
+                    <td style="border: 1px solid #ccc; padding: 8px;">64.6% / 30.6%</td>
+                </tr>
+            </tbody>
+        </table>
 
-            <p>I believe the future of LLM evaluation lies in developing adaptable frameworks that can be tailored to
-                specific use cases while maintaining core principles of safety, accuracy, and fairness. This will likely
-                involve greater collaboration between academic researchers and industry practitioners to establish
-                comprehensive standards that can evolve alongside the technology.</p>
+        <p>
+            <strong>DeepSeek R1 1776</strong> initially showed perfect defense (100% refusal) against clearly
+            malicious jailbreak prompts. Merging malicious prompts with historically sensitive topics significantly
+            lowered refusal rates (44.4%), showing clear vulnerabilities introduced by post-training. However, the
+            base model R1 is less vulnerable to these prompts. Further disguised prompts drastically reduced
+            refusals
+            to 25%, indicating even more pronounced vulnerability.
+        </p>
 
-            <p>In my next post, I'll dive deeper into our methods for synthetic data generation and how we're using it
-                to improve evaluation across diverse scenarios and edge cases.</p>
+        <h3>Recommendations</h3>
+        <ol>
+            <li>
+                <strong>Evaluate Thoroughly</strong>: When deploying post-trained models specialized for sensitive
+                domains, conduct evaluations by generating domain-specific jailbreak datasets.
+            </li>
+            <li>
+                <strong>Balance Specificity and Safety</strong>: Avoid excessive fine-tuning toward openness, as
+                this
+                often inadvertently introduces vulnerabilities.
+            </li>
+            <li>
+                <strong>Continuous Monitoring</strong>: Regularly update your jailbreak testing methodology to
+                account
+                for emerging threats and novel jailbreaking strategies.
+            </li>
+        </ol>
+
+        <h3>Conclusion</h3>
+        <p>
+            DeepSeek R1 1776 exemplifies a broader issue facing post-trained LLMs: Increased specificity can
+            unintentionally reduce safety. Our findings underline the importance of careful alignment and evaluation
+            when deploying models designed to answer sensitive or controversial queries.
+        </p>
+
+        <p>
+            <strong>An example of generated prompts and R1-1776's responses:</strong>
+            <a href="https://huggingface.co/datasets/weijiejailbreak/jailbreak_1776_step3">
+                https://huggingface.co/datasets/weijiejailbreak/jailbreak_1776_step3
+            </a>
+        </p>
+
+        <h3>References</h3>
+        <ol>
+            <li>
+                Souly, Alexandra, et al. "A strongreject for empty jailbreaks."
+                <em>arXiv preprint arXiv:2402.10260</em> (2024).
+            </li>
+            <li>
+                Cui, Justin, et al. "Or-bench: An over-refusal benchmark for large language models."
+                <em>arXiv preprint arXiv:2405.20947</em> (2024).
+            </li>
+            <li>
+                Zeng, Yi, et al. "How johnny can persuade llms to jailbreak them: Rethinking persuasion to challenge
+                ai
+                safety by humanizing llms." <em>Proceedings of the 62nd Annual Meeting of the Association for
+                    Computational Linguistics (Volume 1: Long Papers)</em>. 2024.
+            </li>
+        </ol>
+        </div>
+
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 20px;">
+            <img src="post1_example2.png" alt="Second Image" style="width: 100%; max-width: 1000px;">
+            <figcaption style="font-size: 14px; color: gray; margin-top: 5px; text-align: center;">
+                Figure 2: R1-1776 teaches user how to build toxic chemicals
+            </figcaption>
         </div>
     </article>
+
+
+
+
+
+
 
     <footer>
         <p>© 2025 Weijie Xu | Last updated: March 11, 2025</p>
