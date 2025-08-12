@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SATA-Bench Experiments: Model Performance and Reasoning Analysis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header and Navigation */
+        header {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        h1 {
+            margin-bottom: 0;
+            font-size: 28px;
+        }
+
+        nav {
+            text-align: right;
+        }
+
+        nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #8B0000;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Blog posts */
+        .blog-post {
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .blog-title {
+            font-size: 1.6em;
+            margin-bottom: 5px;
+        }
+
+        .blog-date {
+            color: #777;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .blog-content {
+            margin-top: 15px;
+        }
+
+        .blog-content p {
+            margin-bottom: 15px;
+        }
+
+        .blog-content h3 {
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        /* Code blocks */
+        pre {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: monospace;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #777;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        /* Tables */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+        }
+
+        /* Lists */
+        ul,
+        ol {
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Weijie Xu</h1>
+        <nav>
+            <a href="../index.html">Main</a>
+            <a href="../papers.html">Papers</a>
+            <a href="../writings.html">Writings</a>
+        </nav>
+    </header>
+
+    <article class="blog-post">
+
+        <h3 class="blog-title">GPT OSS is suprisingly good: a case study on SATA-Bench to be cooler</h3>
+        <p class="blog-date">Mug 11, 2025</p>
+        <div class="blog-content">
+
+            <h3>Experiments and Conclusions</h3>
+            <p>
+                We ran experiments on SATA-Bench, a benchmark where two or more answers are correct. It is not a
+                standard benchmark task for LLM and it does not have dataset contaminations. 120B model performs
+                on par with GPT-4.1 on SATA-Bench. 20B model is much weaker than 120B but still matches DeepSeek R1 and
+                Llama-3.1-405B.
+            </p>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 20px;">
+            <img src="performance.jpeg" alt="Performance Example" style="width: 100%; max-width: 1000px;">
+            <figcaption style="font-size: 14px; color: gray; margin-top: 5px; text-align: center;">
+                Figure 1: Benchmark GPT OSS performance on SATA-Bench. Please read our paper[1] for more details on
+                metrics and experiments setup.
+            </figcaption>
+        </div>
+        <h3>Recommendations</h3>
+        <ul>
+            <li>Use higher temperature + slight repetition penalty to reduce repetitive reasoning.</li>
+            <li>Reformat your tasks into a standard benchmark tasks such as multiple choice question (MCQ).</li>
+            <li>Rerun those cases with repetitive reasoning with shorter reasoning budgets.</li>
+            <li>Long chains often harm performance unless absolutely needed.</li>
+        </ul>
+
+        <h3>Detailed Findings</h3>
+
+        <p>
+            Repetitive Reasoning: We define a reasoning as repetitive if it repeats 100+ characters more than 10 times.
+            This happens in
+            11% of reasons for 20B model. Models with repetitive reasoning have much lower accuracy — EM 18.5% vs.
+            27.35% average. Recommendations: Increase temperature slightly and apply a small repetition penalty to
+            mitigate this. You can see example 1 below.
+        </p>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 20px;">
+            <img src="reason_token_size.png" alt="Reason Token Size Analysis" style="width: 100%; max-width: 1000px;">
+            <figcaption style="font-size: 14px; color: gray; margin-top: 5px; text-align: center;">
+                Figure 2: Analysis of reasoning token size patterns and repetitive reasoning behavior
+            </figcaption>
+
+
+
+
+            <p>
+                Reason–Answer Mismatch: The final answer choices do not always align with the reasoning steps. We used
+                Claude 3 Haiku to extract
+                answers, we found: For cases where 120B is correct and 20B is wrong, 53.2% of answers don't match the
+                reasoning. In 45% of mismatched cases, the reasoning itself was actually correct — the model just picked
+                the wrong final choices. Likely cause: models sometimes override logical reasoning if the combined
+                choice sequence has a low probability. You can see example 2 below.
+            </p>
+            <p>
+                Single-Answer Bias: SATA questions are rarer in training data compared to standard MCQ. 20B model tends
+                to default to a
+                single choice even when reasoning suggests multiple answers are correct.
+            </p>
+            <p>
+                Overthinking Hurts Performance: Long reasoning chains often lead to lower accuracy. This "overthinking"
+                effect may signal that the model
+                is uncertain.
+            </p>
+            <p>
+                Struggling with Long Inputs: 20B models' performance drops noticeably when the input length is too large
+                compared to 120B model or
+                GPT-4.1.
+            </p>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 20px;">
+                <img src="input_token_size.png" alt="Input Token Size Analysis" style="width: 100%; max-width: 1000px;">
+                <figcaption style="font-size: 14px; color: gray; margin-top: 5px; text-align: center;">
+                    Figure 3: Performance comparison across different input token sizes for 20B vs 120B models
+                </figcaption>
+            </div>
+
+            <h3>Appendix: Example Cases</h3>
+
+            <div style="background-color: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <h4 style="color: #8B0000; margin-top: 0;">Example 1: Repetitive Reasoning Case</h4>
+
+                <h5>Context:</h5>
+                <p style="background-color: white; padding: 15px; border-left: 4px solid #8B0000; margin: 10px 0;">
+                    Alexis de Tocqueville and Gustave de Beaumont in America: Their Friendship and Their Travels edited
+                    by Oliver Zunz, translated by Arthur Goldhammer (University of Virginia Press; 2011) 698 pages;
+                    Includes previously unpublished letters, essays, and other writings Du systeme penitentaire aux
+                    Etats-Unis et de son application en France (1833) - On the Penitentiary System in the United States
+                    and Its Application to France, with Gustave de Beaumont. De la democratie en Amerique (1835/1840) -
+                    Democracy in America. It was published in two volumes, the first in 1835, the second in 1840.
+                    English language versions: Tocqueville, Democracy in America, trans. and eds., Harvey C. Mansfield
+                    and Delba Winthrop, University of Chicago Press, 2000; Tocqueville, Democracy in America (Arthur
+                    Goldhammer, trans.; Olivier Zunz, ed.) (The Library of America, 2004) ISBN 978-1-931082-54-9.
+                    L'Ancien Regime et la Revolution (1856) - The Old Regime and the Revolution. It is Tocqueville's
+                    second most famous work. Recollections (1893) - This work was a private journal of the Revolution of
+                    1848. He never intended to publish this during his lifetime; it was published by his wife and his
+                    friend Gustave de Beaumont after his death. Journey to America (1831-1832) - Alexis de Tocqueville's
+                    travel diary of his visit to America; translated into English by George Lawrence, edited by J-P
+                    Mayer, Yale University Press, 1960; based on vol. V, 1 of the OEuvres Completes of Tocqueville.
+                    L'Etat social et politique de la France avant et depuis 1789 - Alexis de Tocqueville Memoir On
+                    Pauperism: Does public charity produce an idle and dependant class of society? (1835) originally
+                    published by Ivan R. Dee. Inspired by a trip to England. One of Tocqueville's more obscure works.
+                    Journeys to England and Ireland 1835
+                </p>
+
+                <h5>Question:</h5>
+                <p style="font-weight: bold; margin: 10px 0;">Was De la democratie en Amerique only written in French in
+                    one volume? Select All Correct Answers</p>
+
+                <h5>Options:</h5>
+                <ul style="margin: 10px 0;">
+                    <li><strong>A.</strong> No</li>
+                    <li><strong>B.</strong> No, it was published in two volumes and translated into English as Democracy
+                        in America</li>
+                    <li><strong>C.</strong> Yes</li>
+                </ul>
+
+                <h5>Model Reasoning:</h5>
+                <p style="background-color: white; padding: 15px; border-left: 4px solid #ff6b6b; margin: 10px 0;">
+                    The question asks if this work was written only in French in one volume. Based on the information
+                    provided, we know it was published in two volumes and translated into English. Both answers A and B
+                    are correct since they state "No" and explain that it was published in two volumes and translated to
+                    English. C is incorrect. <em>'But we can produce "choice":"A,B" as a string.' X approximately 500
+                        times</em>. We have to stop.
+                </p>
+
+                <div style="display: flex; gap: 20px; margin: 15px 0;">
+                    <div style="flex: 1; background-color: #ffebee; padding: 10px; border-radius: 5px;">
+                        <strong>Predicted Answer:</strong> {"choice":"B"}
+                    </div>
+                    <div style="flex: 1; background-color: #e8f5e8; padding: 10px; border-radius: 5px;">
+                        <strong>Actual Answer:</strong> AB
+                    </div>
+                </div>
+            </div>
+
+            <div style="background-color: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <h4 style="color: #8B0000; margin-top: 0;">Example 2: Reason-Answer Mismatch Case</h4>
+
+                <h5>Context:</h5>
+                <p style="background-color: white; padding: 15px; border-left: 4px solid #8B0000; margin: 10px 0;">
+                    Sunlight Sunlight can be used to heat homes. It can also be used to produce electricity. This
+                    conversion is made possible by solar cells. However, solar energy may not always be practical. Some
+                    areas are just too cloudy. Example Solar panels on the roof of this house generate enough
+                    electricity to supply a familys needs. Moving Water Falling water can have a lot of energy. Its
+                    energy can be converted into kinetic energy. This energy can turn a turbine and generate
+                    electricity. The water may fall naturally over a waterfall or flow through a dam. A drawback of dams
+                    is that they flood land upstream. They can also reduce water flow downstream. Either effect may harm
+                    ecosystems. Wind is moving air. It has kinetic energy that can do work. Wind turbines change the
+                    kinetic energy of the wind to electrical energy. Only certain areas of the world get enough steady
+                    wind. Many people also think that wind turbines are noisy and not very nice to look at.
+                </p>
+
+                <h5>Question:</h5>
+                <p style="font-weight: bold; margin: 10px 0;">How does moving water make electricity? Select All Correct
+                    Answers</p>
+
+                <h5>Options:</h5>
+                <ul style="margin: 10px 0;">
+                    <li><strong>A.</strong> Water can generate electricity by turning a turbine</li>
+                    <li><strong>B.</strong> Electricity can be made by storing the water in batteries</li>
+                    <li><strong>C.</strong> Water's energy can turn a turbine and magically result in electricity</li>
+                    <li><strong>D.</strong> Falling water can have a lot of energy which can be converted into kinetic
+                        energy that turns a turbine and generates electricity</li>
+                    <li><strong>E.</strong> Water can move a turbine that generates power</li>
+                    <li><strong>F.</strong> Electricity can be made by taking the hydrogen out of moving water</li>
+                </ul>
+
+                <h5>Model Reasoning:</h5>
+                <p style="background-color: white; padding: 15px; border-left: 4px solid #4caf50; margin: 10px 0;">
+                    We need to analyze paragraph sentences 7-10 about moving water. Sent 7: "Moving Water Falling water
+                    can have a lot of energy." Sent 8: "Its energy can be converted into kinetic energy." Sent 9: "This
+                    energy can turn a turbine and generate electricity." Sent 10: "The water may fall naturally over a
+                    waterfall or flow through a dam." So answer choices that match: A: "Water can generate electricity
+                    by turning a turbine" - yes. D: "Falling water can have a lot of energy which can be converted into
+                    kinetic energy that turns a turbine and generates electricity" - yes. E: "Water can move a turbine
+                    that generates power" - yes. C: "Water's energy can turn a turbine and magically result in
+                    electricity" - The paragraph says "turn a turbine and generate electricity" not "magically". But
+                    "magically" is just a word; but the content is same. The question: "How does moving water make
+                    electricity?" The answer choices: A, D, E all correct. C includes "magically" which is not in
+                    paragraph but still correct concept? The paragraph says "turn a turbine and generate electricity"
+                    not "magically". So C is not exactly correct. B: "Electricity can be made by storing the water in
+                    batteries" - not in paragraph. F: "Electricity can be made by taking the hydrogen out of moving
+                    water" - not in paragraph. So correct choices: A, D, E. Also maybe C? But "magically" is not in
+                    paragraph. The question: "How does moving water make electricity?" The paragraph says "turn a
+                    turbine and generate electricity." So C says "turn a turbine and magically result in electricity" -
+                    the word "magically" is extraneous but not contradictory. But the question: "How does moving water
+                    make electricity?" The answer should reflect the paragraph. So we choose A, D, E. Let's produce JSON
+                    for each choice.
+                </p>
+
+                <div style="display: flex; gap: 20px; margin: 15px 0;">
+                    <div style="flex: 1; background-color: #ffebee; padding: 10px; border-radius: 5px;">
+                        <strong>Predicted Answer:</strong> {"choice":"A"}
+                    </div>
+                    <div style="flex: 1; background-color: #e8f5e8; padding: 10px; border-radius: 5px;">
+                        <strong>Actual Answer:</strong> ADE
+                    </div>
+                </div>
+            </div>
+
+            <h3>References</h3>
+            <ol>
+                <li>
+                    <a href="https://arxiv.org/pdf/2506.00643" target="_blank">SATA-Bench: Select All That Apply
+                        Benchmark for Multiple Choice Questions</a>
+                </li>
+
+            </ol>
+
+        </div>
+    </article>
+
+    <footer>
+        <p>© 2025 Weijie Xu | Last updated: March 12, 2025</p>
+    </footer>
+</body>
+
+</html>
